@@ -1,10 +1,7 @@
 package tendenciasmusicales;
 
-// Clase Cancion
-
-//import java.util.Date;
-
 class Cancion {
+
     private String cancion;
     private String artista;
     private String album;
@@ -39,16 +36,15 @@ class Cancion {
         estado.darDislike();
     }
 
+    public void mostrarDetalle() {
+        estado.mostrarDetalle();
+    }
+    
     public void actualizarEstado(EstadoPopularidad nuevoEstado) {
         this.estado = nuevoEstado;
     }
 
-public void mostrarDetalle() {
-    estado.mostrarDetalle();
-}
-
     // Getters y Setters
-
     public int getReproducciones() {
         return reproducciones;
     }
@@ -57,25 +53,14 @@ public void mostrarDetalle() {
         this.reproducciones = reproducciones;
     }
 
-    public boolean isSinReproducionesEn24Horas() {
+    public boolean getSinReproducionesEn24Horas() {
         return sinReproducionesEn24Horas;
     }
 
     public void setSinReproducionesEn24Horas(boolean sinReproducionesEn24Horas) {
         this.sinReproducionesEn24Horas = sinReproducionesEn24Horas;
     }
-    
-    
-    /*
-    public void setsinReproducionesEn24Horas(boolean sinReproducionesEn24Horas){
-    this.sinReproducionesEn24Horas = sinReproducionesEn24Horas;
-    }
-    
-    public boolean getsinReproducionesEn24Horas(){
-    return sinReproducionesEn24Horas;
-    }
-    */
-    
+
     public int getLikes() {
         return likes;
     }
@@ -107,5 +92,4 @@ public void mostrarDetalle() {
     public int getAñoAlbum() {
         return añoAlbum;
     }
-    
-  }
+}

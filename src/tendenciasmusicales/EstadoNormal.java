@@ -11,39 +11,39 @@ class EstadoNormal implements EstadoPopularidad {
 
     @Override
     public void reproducir() {
-        cancion.setReproducciones(cancion.getReproducciones() + 1);
+        cancion.setReproducciones(cancion.getReproducciones() + 1); //Agrega una reproducción
         System.out.print("\n   ▶ REPRODUCIENDO    ");
-        if (cancion.getReproducciones() > 1000) {
-            cancion.actualizarEstado(new EstadoEnAuge(cancion));
-        }if (cancion.getDislikes() >= 5000) {
-            cancion.actualizarEstado(new EstadoNormal(cancion));
-        }if (cancion.getReproducciones() > 50000 && cancion.getLikes() > 20000) {
-            cancion.actualizarEstado(new EstadoTendencia(cancion));
+
+        if (cancion.getDislikes() >= 5000 || cancion.getSinReproducionesEn24Horas() != true) {
+            if (cancion.getReproducciones() > 50000 && cancion.getLikes() > 20000) {
+                cancion.actualizarEstado(new EstadoTendencia(cancion));
+            } else if (cancion.getReproducciones() > 1000) {
+                cancion.actualizarEstado(new EstadoEnAuge(cancion));
+            }
         }
+        cancion.mostrarDetalle();
     }
 
     @Override
     public void darLike() {
-        cancion.setLikes(cancion.getLikes() + 1);
+        cancion.setLikes(cancion.getLikes() + 1); //Agrega un like
+        if (cancion.getReproducciones() > 1000) {
+            cancion.actualizarEstado(new EstadoEnAuge(cancion));
+        }
     }
 
     @Override
     public void darDislike() {
-        cancion.setDislikes(cancion.getDislikes() + 1);
-        if (cancion.getDislikes() >= 5000) {
-            cancion.actualizarEstado(new EstadoNormal(cancion));
-        }
+        cancion.setDislikes(cancion.getDislikes() + 1); //Agrega un dislike
     }
-    
-    
 
     @Override
     public void mostrarDetalle() {
-        System.out.println(" ");
-        //System.out.println("🇪​​​​​🇸​​​​​🇹​​​​​🇦​​​​​🇩​​​​​🇴​​​​​ 🇳​​​​​🇴​​​​​🇷​​​​​🇲​​​​​🇦​​​​​🇱\n");
+        System.out.println("​​​​​🇳​​​​​🇴​​​​​🇷​​​​​🇲​​​​​🇦​​​​​🇱");
         System.out.print(Icono.MUSICAL_NOTE.texto());
         System.out.println(" " + cancion.getArtista() + " - " + cancion.getAlbum()
                 + " - " + cancion.getCancion() + "\n");
         presentacion.esperar(500);
     }
+
 }

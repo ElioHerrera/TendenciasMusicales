@@ -12,41 +12,36 @@ class EstadoTendencia implements EstadoPopularidad {
     @Override
     public void reproducir() {
 
-        cancion.setReproducciones(cancion.getReproducciones() + 1);
+        cancion.setReproducciones(cancion.getReproducciones());
         System.out.print("\n   ▶ REPRODUCIENDO    ");
-        if (cancion.getReproducciones() > 50000 && cancion.getLikes() > 20000) {
-            cancion.actualizarEstado(new EstadoTendencia(cancion));
-        } else if(cancion.isSinReproducionesEn24Horas() != false){
-        cancion.actualizarEstado(new EstadoNormal(cancion));
-                }
+
+        if (cancion.getDislikes() >= 5000 || cancion.getSinReproducionesEn24Horas() != false) {
+            cancion.actualizarEstado(new EstadoNormal(cancion));
+        }
+        cancion.mostrarDetalle();
+
     }
 
     @Override
     public void darLike() {
-        cancion.setLikes(cancion.getLikes() + 1);
+        cancion.setLikes(cancion.getLikes());
     }
 
     @Override
     public void darDislike() {
-        cancion.setDislikes(cancion.getDislikes() + 1);
+        cancion.setDislikes(cancion.getDislikes());
         if (cancion.getDislikes() >= 5000) {
             cancion.actualizarEstado(new EstadoNormal(cancion));
-        } 
-        
-        
         }
-    
+    }
 
     @Override
     public void mostrarDetalle() {
         System.out.println("🇹​​​​​🇪​​​​​🇳​​​​​🇩​​​​​🇪​​​​​🇳​​​​​🇨​​​​​🇮​​​​​🇦");
-
         System.out.print(Icono.FIRE.texto());
         System.out.println(" " + cancion.getCancion() + " - " + cancion.getArtista()
                 + " (" + cancion.getAlbum() + " - " + cancion.getAñoAlbum() + ")"
                 + "\n");
         presentacion.esperar(500);
     }
-    
-  
 }
